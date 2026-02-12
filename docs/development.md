@@ -2,17 +2,27 @@
 
 Clone the repository:
 
-    git clone https://github.com/yourname/jupyternotifyplus
-    cd jupyternotifyplus
+```bash
+git clone https://github.com/yourname/jupyternotifyplus
+cd jupyternotifyplus
+```
 
 Install in editable mode:
 
-    pip install -e .[dev]
+```bash
+pip install -e .[dev]
+```
 
 Run tests:
 
-    pytest
+```bash
+pytest
+```
 
 Build the package:
 
-    python -m build
+```bash
+python -m build
+```
+
+---
