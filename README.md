@@ -38,7 +38,7 @@ Then:
 
 ## MIT License
 
-Copyright (c) 2026 Daniel
+Copyright (c) 2026 Daniel Cangemi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 ...
