@@ -1,7 +1,7 @@
 site_name: Jupyter Notify Plus
 site_description: Enhanced Jupyter Notebook notifications with inline and end-of-cell magics.
-site_author: Daniel
-repo_url: https://github.com/yourname/jupyternotifyplus
+site_author: Daniel Cangemi
+repo_url: https://github.com/cngmid/jupyternotifyplus
 theme:
   name: material
   features:
@@ -12,10 +12,10 @@ theme:
     - content.action.edit
   palette:
     - scheme: default
-      primary: blue
+      primary: green
       accent: amber
     - scheme: slate
-      primary: blue
+      primary: green
       accent: amber
 
 nav:
