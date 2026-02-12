@@ -1,0 +1,4 @@
+# Build artifacts
+*.egg-info/
+build/
+dist/
