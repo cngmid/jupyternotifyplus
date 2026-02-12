@@ -44,6 +44,9 @@ extra:
       link: https://github.com/cngmid/jupyternotifyplus
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/jupyternotifyplus/
+  analytics:
+    provider: goatcounter
+    site: https://jupyternotifyplus.goatcounter.com/count
 
 markdown_extensions:
   - admonition
