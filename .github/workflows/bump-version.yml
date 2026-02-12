@@ -29,6 +29,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Debug bump-my-version
+        run: bump-my-version show-config
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
