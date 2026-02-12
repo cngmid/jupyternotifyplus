@@ -1,0 +1,39 @@
+site_name: Jupyter Notify Plus
+site_description: Enhanced Jupyter Notebook notifications with inline and end-of-cell magics.
+site_author: Daniel Cangemi
+repo_url: https://github.com/cngmid/jupyternotifyplus
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - scheme: default
+      primary: green
+      accent: amber
+    - scheme: slate
+      primary: green
+      accent: amber
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage:
+      - Overview: usage.md
+      - Magic Commands: magics.md
+      - Presets: presets.md
+  - Development:
+      - Contributing: development.md
+      - Testing: testing.md
+  - Changelog: changelog.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
