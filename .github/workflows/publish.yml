@@ -1,4 +1,4 @@
-name: Publish to PyPI
+name: Build and Publish
 
 on:
   release:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -21,11 +21,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install build tools
+      - name: Install build
         run: pip install build
 
       - name: Build package
         run: python -m build
 
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.10.0
+        uses: pypa/gh-action-pypi-publish@release/v1
