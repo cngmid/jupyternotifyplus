@@ -38,8 +38,8 @@ jobs:
         run: pip install bump-my-version
 
       - name: Bump version
-        run: bump-my-version bump --config-file .bump-my-version.toml --verbose ${{ github.event.inputs.level }}
+        run: bump-my-version bump --config-file .bump-my-version.toml --verbose --allow-dirty ${{ github.event.inputs.level }}
 
       - name: Push changes
         run: |
-          git push --follow-tags
+          git push origin HEAD:${{ github.ref_name }} --follow-tags
