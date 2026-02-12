@@ -4,6 +4,8 @@ site_author: Daniel Cangemi
 repo_url: https://github.com/cngmid/jupyternotifyplus
 theme:
   name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
   features:
     - navigation.instant
     - navigation.sections
