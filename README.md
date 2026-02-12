@@ -36,12 +36,7 @@ Then:
 
 ---
 
-# 🧩 3. `LICENSE`
-
-If you want MIT (recommended):
-
-```text
-MIT License
+## MIT License
 
 Copyright (c) 2026 Daniel
 

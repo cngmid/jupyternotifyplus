@@ -1,4 +1,9 @@
 # Build artifacts
-*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 build/
 dist/
+*.egg-info/
+.ipynb_checkpoints/
