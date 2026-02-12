@@ -37,3 +37,28 @@ markdown_extensions:
   - codehilite
   - toc:
       permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cngmid/jupyternotifyplus
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/jupyternotifyplus/
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - footnotes
+  - attr_list
+  - md_in_html
+
+extra_javascript: []
+extra_css: []
+
+extra_templates:
+  - _footer.md
+
+copyright: >
+  © 2024–2026 Daniel — Jupyter Notify Plus.  
+  Released under the MIT License.
