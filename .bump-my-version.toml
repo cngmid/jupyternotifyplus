@@ -3,7 +3,7 @@ current_version = "0.2.1"
 commit = true
 tag = true
 
-[["bumpversion:files"]]
+[[bumpversion.files]]
 filename = "pyproject.toml"
 search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
