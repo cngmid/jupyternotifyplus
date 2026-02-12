@@ -7,19 +7,16 @@ name = "jupyternotifyplus"
 version = "0.1.0"
 description = "Enhanced Jupyter Notebook notifications with inline and end-of-cell magic commands."
 authors = [
-    { name = "Daniel", email = "your-email@example.com" }
+    { name = "Daniel" }
 ]
-readme = "README.md"
-license = { file = "LICENSE" }
+readme = { file = "README.md", content-type = "text/markdown" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.8"
 dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/cngmid/jupyternotifyplus"
 
-[tool.setuptools.dynamic]
-version = { attr = "jupyternotifyplus.version.__version__" }
-
 [project.optional-dependencies]
 dev = ["pytest"]
-
