@@ -37,9 +37,6 @@ jobs:
       - name: Install bump-my-version
         run: pip install bump-my-version
 
-      - name: Debug bump-my-version
-        run: bump-my-version show-config
-
       - name: Bump version
         run: bump-my-version bump ${{ github.event.inputs.level }}
 
