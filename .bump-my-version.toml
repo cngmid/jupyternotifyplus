@@ -7,7 +7,3 @@ tag = true
 search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 
-[bumpversion]
-current_version = "0.2.1"
-commit = true
-tag = true
