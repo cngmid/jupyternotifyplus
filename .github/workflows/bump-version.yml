@@ -38,7 +38,7 @@ jobs:
         run: pip install bump-my-version
 
       - name: Bump version
-        run: bump-my-version bump ${{ github.event.inputs.level }}
+        run: bump-my-version bump ${{ github.event.inputs.level }} --verbose --list
 
       - name: Push changes
         run: |
