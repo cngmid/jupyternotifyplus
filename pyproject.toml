@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jupyternotifyplus"
-version = "0.2.6"
+version = "0.2.7"
 description = "Enhanced Jupyter Notebook notifications with inline and end-of-cell magic commands."
 authors = [
     { name = "Daniel" }
