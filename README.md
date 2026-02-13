@@ -6,6 +6,8 @@
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Build Status](https://github.com/cngmid/jupyternotifyplus/actions/workflows/publish.yml/badge.svg)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://cngmid.github.io/jupyternotifyplus)
+![Downloads](https://img.shields.io/pypi/dm/jupyternotifyplus)
 
 ---
 
