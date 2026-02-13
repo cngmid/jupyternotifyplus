@@ -1,45 +1,9 @@
-## Changelog
+## v0.4.0 — 2025-02-13
 
-### DOCUMENTATION
-
-
-- docs: switch to custom footer
-
-- docs: modify footer to be an icon
-
-- docs: replace foozter with social
-
-- docs: amend social
-
-- docs: amend social icon
-
-- docs: add plugins icons
-
-- docs: add mkdocs-material-extensions and mkdocs-icons
-
-- docs: remove mkdocs-material-extensions and mkdocs-icons
-
-- docs: mkdocs-material[icons]
-
-- docs: remove icons from plugins
-
-- docs: include icons
-
-
-### FIXES
-
+### 🐛 Fixes
 
 - fix: resolves Python variables, expressions and f-strings
 
-
-### INTERNAL
-
-
-- polish: CHANGELOG and RELEASE_NOTES
-
-- internal: add campaign tracking parameters
-
-- internal: add include_footer
 
 ## v0.3.0 — 2025-02-13
 
@@ -52,6 +16,7 @@
 - polish CHANGELOG
 
 - internal: remove changelog workflow
+
 
 ## v0.2.5 — 2025-02-13
 
