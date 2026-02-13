@@ -34,8 +34,8 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install bump-my-version
-        run: pip install bump-my-version
+      - name: Install dev dependencies
+        run: pip install .[dev]
 
       - name: Bump version
         run: bump-my-version bump --config-file .bump-my-version.toml --verbose --allow-dirty ${{ github.event.inputs.level }}
