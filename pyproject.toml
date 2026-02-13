@@ -17,7 +17,7 @@ dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/cngmid/jupyternotifyplus"
-Documentation = "https://cngmid.github.io/jupyternotifyplus"
+Documentation = "https://cngmid.github.io/jupyternotifyplus?ref=pypi"
 
 [project.optional-dependencies]
 dev = [
