@@ -22,7 +22,8 @@ Documentation = "https://cngmid.github.io/jupyternotifyplus"
 [project.optional-dependencies]
 dev = [
     "pytest",
-    "bump-my-version"
+    "bump-my-version",
+    "git-cliff"
 ]
 
 docs = [

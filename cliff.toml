@@ -1,0 +1,17 @@
+[changelog]
+header = "## Changelog"
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | upper }}
+
+{% for commit in commits %}
+- {{ commit.message | trim }}
+{% endfor %}
+{% endfor %}
+"""
+
+footer = ""
+
+[git]
+conventional_commits = true
+filter_unconventional = false
