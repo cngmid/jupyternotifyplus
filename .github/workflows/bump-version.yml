@@ -41,7 +41,7 @@ jobs:
         run: bump-my-version bump --config-file .bump-my-version.toml --verbose --allow-dirty ${{ github.event.inputs.level }}
 
       - name: Generate changelog
-        run: run: git-cliff --unreleased --prepend CHANGELOG.md
+        run: git-cliff --unreleased --prepend CHANGELOG.md
 
       - name: Commit changelog
         run: |
