@@ -34,7 +34,6 @@ markdown_extensions:
 plugins:
   - search
   - tags
-  - icons
 
 extra:
   social:
