@@ -70,6 +70,41 @@ class NotifyMeMagics(Magics):
             metadata={}
         )
 
+    def _resolve(self, value):
+        if value is None:
+            return None
+
+        ns = self.shell.user_ns
+
+        # Case 1: variable name
+        if value in ns:
+            return ns[value]
+
+        # Case 2: f-string with stripped quotes (shlex behavior)
+        if value.startswith("f") and ("{" in value or "=" in value):
+            inner = value[1:]  # remove leading f
+            try:
+                return eval(f"f'{inner}'", ns)
+            except Exception:
+                try:
+                    return eval(f'f"{inner}"', ns)
+                except Exception:
+                    return value
+
+        # Case 3: f-string with quotes intact
+        if (value.startswith('f"') and value.endswith('"')) or \
+           (value.startswith("f'") and value.endswith("'")):
+            try:
+                return eval(value, ns)
+            except Exception:
+                return value
+
+        # Case 4: general expression
+        try:
+            return eval(value, ns)
+        except Exception:
+            return value
+
     @line_magic
     def notifyme(self, line):
         try:
@@ -98,8 +133,8 @@ class NotifyMeMagics(Magics):
         except SystemExit:
             return
 
-        title = args.t or (preset["title"] if preset else "Cell finished")
-        message = args.m or (preset["message"] if preset else "Your cell has completed.")
+        title = self._resolve(args.t) or (preset["title"] if preset else "Cell finished")
+        message = self._resolve(args.m) or (preset["message"] if preset else "Your cell has completed.")
         icon = args.icon or (preset["icon"] if preset else DEFAULT_ICON)
 
         if inline:
@@ -131,6 +166,9 @@ class NotifyMeMagics(Magics):
         args = self.shell.user_ns.pop("_notifyme_args", None)
         if not args:
             return
+
+        args.t = self._resolve(args.t)
+        args.m = self._resolve(args.m)
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         message = f"{args.m} — Finished at {timestamp}"
