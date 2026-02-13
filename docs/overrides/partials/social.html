@@ -5,7 +5,7 @@
      rel="noopener"
      title="{{ icon.name }}"
      class="md-social__link">
-    {{ icon.icon }}
+    {{ icon.icon | icon }}
   </a>
 {% endfor %}
 
@@ -15,12 +15,5 @@
    rel="noopener"
    title="Changelog"
    class="md-social__link">
-  <svg xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 24 24"
-       width="20"
-       height="20"
-       aria-hidden="true">
-    <path fill="currentColor"
-          d="M19 3H5a2 2 0 0 0-2 2v14l4-4h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-4 9H7v-2h8v2zm2-4H7V6h10v2z"/>
-  </svg>
+  {{ "material/file-document-outline" | icon }}
 </a>
