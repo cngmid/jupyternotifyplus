@@ -1,0 +1,19 @@
+changelog:
+  categories:
+    - title: 🚀 Features
+      labels:
+        - feat
+    - title: 🐛 Fixes
+      labels:
+        - fix
+    - title: 📚 Documentation
+      labels:
+        - docs
+    - title: 🔧 Internal
+      labels:
+        - chore
+        - ci
+        - refactor
+    - title: Other Changes
+      labels:
+        - "*"
