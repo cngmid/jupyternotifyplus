@@ -43,6 +43,14 @@ jobs:
       - name: Generate changelog
         run: git-cliff --unreleased --prepend CHANGELOG.md
 
+      - name: Extract release notes
+        run: git-cliff --unreleased > RELEASE_NOTES.md
+
+      - name: Commit release notes
+        run: |
+          git add RELEASE_NOTES.md
+          git commit -m "Add release notes for v${VERSION}"
+
       - name: Commit changelog
         run: |
           git add CHANGELOG.md
