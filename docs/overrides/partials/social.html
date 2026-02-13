@@ -1,4 +1,4 @@
-{% from "partials/icons.html" import icon %}
+{# No need to import the icon macro anymore #}
 
 {% for entry in config.extra.social %}
   <a href="{{ entry.link }}"
@@ -6,10 +6,14 @@
      rel="noopener"
      title="{{ entry.name | default('') }}"
      class="md-social__link">
-    {{ icon(entry.icon) }}
+    {# Dynamically include the icon based on the path in mkdocs.yml #}
+    <span class="twemoji">
+      {% include ".icons/" ~ entry.icon ~ ".svg" %}
+    </span>
   </a>
 {% endfor %}
 
+{# Your custom hardcoded link #}
 <a href="https://cngmid.github.io/jupyternotifyplus/changelog?ref=footer"
    target="_blank"
    rel="noopener"
