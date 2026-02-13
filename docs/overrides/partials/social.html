@@ -1,19 +1,19 @@
-{# --- Preserve original social icons --- #}
-{% for icon in config.extra.social %}
-  <a href="{{ icon.link }}"
+{% from "partials/icons.html" import icon %}
+
+{% for entry in config.extra.social %}
+  <a href="{{ entry.link }}"
      target="_blank"
      rel="noopener"
-     title="{{ icon.name }}"
+     title="{{ entry.name | default('') }}"
      class="md-social__link">
-    {{ icon.icon }}
+    {{ icon(entry.icon) }}
   </a>
 {% endfor %}
 
-{# --- Add your custom changelog icon --- #}
 <a href="https://cngmid.github.io/jupyternotifyplus/changelog?ref=footer"
    target="_blank"
    rel="noopener"
    title="Changelog"
    class="md-social__link">
-  {{ "material/file-document-outline" }}
+  {{ icon("material/file-document-outline") }}
 </a>
