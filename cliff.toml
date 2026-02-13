@@ -24,7 +24,7 @@ commit_parsers = [
   { message = "(?i).*feat.*", group = "Features" },
   { message = "(?i).*fix.*", group = "Fixes" },
   { message = "(?i).*doc.*", group = "Documentation" },
-  { message = "(?i).*style.*", group = "Style" },
-  { message = "(?i).*polish.*", group = "Style" },
+  { message = "(?i).*style.*", group = "Internal" },
+  { message = "(?i).*polish.*", group = "Internal" },
   { message = ".*", group = "Other" }
 ]
