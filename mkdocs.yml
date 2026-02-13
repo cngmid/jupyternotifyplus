@@ -31,6 +31,11 @@ markdown_extensions:
   - toc:
       permalink: true
 
+plugins:
+  - search
+  - tags
+  - icons
+
 extra:
   social:
     - icon: fontawesome/brands/github
