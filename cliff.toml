@@ -17,8 +17,14 @@ conventional_commits = false
 filter_unconventional = false
 
 commit_parsers = [
-  { message = ".*feat.*", group = "Features" },
-  { message = ".*fix.*", group = "Fixes" },
-  { message = ".*docs.*", group = "Documentation" },
+  { message = "^Merge", skip = true },
+  { message = "^Bump version", skip = true },
+  { message = "^Update changelog", skip = true },
+  { message = "^Test", skip = true },
+  { message = "(?i).*feat.*", group = "Features" },
+  { message = "(?i).*fix.*", group = "Fixes" },
+  { message = "(?i).*doc.*", group = "Documentation" },
+  { message = "(?i).*style.*", group = "Style" },
+  { message = "(?i).*polish.*", group = "Style" },
   { message = ".*", group = "Other" }
 ]
