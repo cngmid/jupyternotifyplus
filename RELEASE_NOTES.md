@@ -1,16 +1,9 @@
-## Changelog
+## 🚀 Highlights
 
-### DOCUMENTATION
+- Release as a minor version.
 
+## 📦 Changes
 
-- doc: link doc changelog to CHANGELOG
-
-
-### INTERNAL
-
-
-- polish CHANGELOG
-
-- internal: remove changelog workflow
-
+See the full changelog for details:  
+https://github.com/cngmid/jupyternotifyplus/blob/main/CHANGELOG.md
 

@@ -1,19 +1,16 @@
-## Changelog
+## v0.3.0 — 2025-02-13
 
-### DOCUMENTATION
-
+### 📚 Documentation
 
 - doc: link doc changelog to CHANGELOG
 
-
-### INTERNAL
-
+### 🔧 Internal
 
 - polish CHANGELOG
 
 - internal: remove changelog workflow
 
-
+## v0.2.5 — 2025-02-13
 
 ### 🐛 Fixes
 
