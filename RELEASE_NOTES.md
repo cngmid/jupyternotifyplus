@@ -1,11 +1,14 @@
-## 🚀 Highlights
+## Changelog
 
-`%notifyme` now correctly resolves Python variables, expressions, and
-f‑strings passed to `-t` and `-m`.
-This enables dynamic, context‑aware notifications 
+### FIXES
 
-## 📦 Changes
 
-See the full changelog for details:  
-https://github.com/cngmid/jupyternotifyplus/blob/main/CHANGELOG.md
+- fix: stale notifications on notebook load
+
+
+### INTERNAL
+
+
+- polish: CHANGELOG and RELEASE_NOTES
+
 
