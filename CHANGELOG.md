@@ -1,15 +1,9 @@
-## Changelog
+## v0.4.1 — 2025-02-18
 
-### FIXES
-
+### 🐛 Fixes
 
 - fix: stale notifications on notebook load
 
-
-### INTERNAL
-
-
-- polish: CHANGELOG and RELEASE_NOTES
 
 ## v0.4.0 — 2025-02-13
 

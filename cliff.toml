@@ -21,11 +21,11 @@ commit_parsers = [
   { message = "^Bump version", skip = true },
   { message = "^Update changelog", skip = true },
   { message = "^Test", skip = true },
+  { message = "(?i)^polish.*", skip = true },
   { message = "(?i).*feat.*", group = "Features" },
   { message = "(?i).*fix.*", group = "Fixes" },
   { message = "(?i).*doc.*", group = "Documentation" },
   { message = "(?i)^internal.*", group = "Internal" },
   { message = "(?i).*style.*", group = "Internal" },
-  { message = "(?i)^polish.*", group = "Internal" },
   { message = ".*", group = "Other" }
 ]
