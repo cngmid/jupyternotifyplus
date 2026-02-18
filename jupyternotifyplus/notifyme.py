@@ -65,6 +65,8 @@ PRESETS = {
 class NotifyMeMagics(Magics):
     def __init__(self, shell):
         super().__init__(shell)
+        self._pending_args = None
+
         publish_display_data(
             data={"application/javascript": _INIT_JS},
             metadata={}
@@ -133,8 +135,14 @@ class NotifyMeMagics(Magics):
         except SystemExit:
             return
 
-        title = self._resolve(args.t) or (preset["title"] if preset else "Cell finished")
-        message = self._resolve(args.m) or (preset["message"] if preset else "Your cell has completed.")
+        title = (
+            self._resolve(args.t)
+            or (preset["title"] if preset else "Cell finished")
+        )
+        message = (
+            self._resolve(args.m)
+            or (preset["message"] if preset else "Your cell has completed.")
+        )
         icon = args.icon or (preset["icon"] if preset else DEFAULT_ICON)
 
         if inline:
@@ -160,10 +168,12 @@ class NotifyMeMagics(Magics):
         args.t = title
         args.m = message
         args.icon = icon
-        self.shell.user_ns["_notifyme_args"] = args
+        # Store pending args privately to not persist in the notebook
+        self._pending_args = args
 
     def post_run_cell(self, result):
-        args = self.shell.user_ns.pop("_notifyme_args", None)
+        args = self._pending_args
+        self._pending_args = None
         if not args:
             return
 

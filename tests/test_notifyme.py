@@ -10,6 +10,35 @@ def shell():
     return shell
 
 
+def test_no_notification_on_load(shell):
+    """
+    Ensures that simply loading the extension does not schedule
+    notifications.
+    """
+    assert getattr(
+        shell.magics_manager.magics['line'], 'notifyme'
+    )._pending_args is None
+
+
+def test_pending_args_cleared_after_run(shell):
+    """
+    Ensures that pending args are cleared after post_run_cell executes.
+    """
+    shell.run_line_magic("notifyme", "-t 'Hello'")
+    magics = shell.magics_manager.magics['line']['notifyme']
+
+    # Pending args should be set
+    assert magics._pending_args is not None
+
+    # Simulate cell execution
+    shell.events.trigger(
+        "post_run_cell", result=type("R", (), {"result": None})()
+    )
+
+    # Pending args should now be cleared
+    assert magics._pending_args is None
+
+
 def test_variable_resolution(shell):
     shell.run_cell("a = 'Hello World'")
     shell.run_line_magic("notifyme", "success -t a")

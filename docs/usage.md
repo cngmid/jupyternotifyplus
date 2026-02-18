@@ -12,6 +12,22 @@ You have two main commands:
 
 ---
 
+## Notification Execution Behaviour
+
+`%notifyme` schedules a notification for the **next executed cell**.
+To ensure predictable behaviour:
+
+- Notifications **do not** fire when a notebook is opened.
+- Notifications **only** fire after a real cell execution.
+- Internal state is stored privately and cleared immediately after use.
+- No state is written into the user namespace.
+
+This prevents stale notifications from appearing when reopening
+notebooks and ensures that `%notifyme` behaves consistently across
+sessions.
+
+---
+
 ## End-of-cell notification
 
 ```python
