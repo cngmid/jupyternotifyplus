@@ -210,3 +210,5 @@ def load_ipython_extension(ipython):
     magics = NotifyMeMagics(ipython)
     ipython.register_magics(magics)
     ipython.events.register("post_run_cell", magics.post_run_cell)
+    ipython.notifyme_magics = magics
+
