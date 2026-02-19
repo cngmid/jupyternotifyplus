@@ -1,3 +1,18 @@
+## Changelog
+
+### FIXES
+
+
+- fix: 'NotifyMeMagics' object has no attribute '_pending_args'
+
+- fix: Preventing Notifications on Notebook Load
+
+
+### OTHER
+
+
+- Update CHANGELOG
+
 ## v0.4.1 — 2025-02-18
 
 ### 🐛 Fixes
