@@ -20,6 +20,26 @@ def test_no_notification_on_load(shell):
     assert "_notifyme_args" not in shell.user_ns
 
 
+def test_inline_js_guard(shell):
+    magics = shell.notifyme_magics
+
+    js = magics._make_inline_js("Hello", "World", "icon.png")
+
+    assert "IPython.notebook && !IPython.notebook.kernel" in js
+    assert "Skipping inline notification" in js
+    assert "w.notifyMe('Hello', 'World', 'icon.png')" in js
+
+
+def test_postrun_js_guard(shell):
+    magics = shell.notifyme_magics
+
+    js = magics._make_postrun_js("Hello", "World", "icon.png")
+
+    assert "IPython.notebook && !IPython.notebook.kernel" in js
+    assert "Skipping post-run notification" in js
+    assert "w.notifyMe('Hello', 'World', 'icon.png')" in js
+
+
 def test_pending_args_cleared_after_run(shell):
     shell.run_line_magic("notifyme", "-t 'Hello'")
     magics = get_magics(shell)

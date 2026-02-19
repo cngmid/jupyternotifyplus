@@ -1,13 +1,15 @@
 import argparse
 import shlex
 from datetime import datetime
+
 from IPython.core.magic import Magics, magics_class, line_magic
 from IPython.display import publish_display_data
 
 # Default icon
 DEFAULT_ICON = "https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/2139.png"
 
-# JavaScript injected into the notebook
+# JavaScript injected once per kernel session
+# IMPORTANT: This guard prevents notifications during notebook restore.
 _INIT_JS = r"""
 (function() {
     var w = window;
@@ -16,6 +18,19 @@ _INIT_JS = r"""
     }
 
     w.notifyMe = function(title, body, iconUrl) {
+        try {
+            // Classic Jupyter Notebook: kernel is null during notebook load
+            if (window.IPython &&
+                IPython.notebook &&
+                !IPython.notebook.kernel) {
+                console.log("notifyMe: Kernel not ready, skipping notification (likely notebook restore).");
+                return;
+            }
+        } catch (e) {
+            console.log("notifyMe: error checking kernel state:", e);
+            return;
+        }
+
         if (!("Notification" in w)) {
             console.log("Browser does not support notifications.");
             return;
@@ -84,7 +99,7 @@ class NotifyMeMagics(Magics):
 
         # Case 2: f-string with stripped quotes (shlex behavior)
         if value.startswith("f") and ("{" in value or "=" in value):
-            inner = value[1:]  # remove leading f
+            inner = value[1:]
             try:
                 return eval(f"f'{inner}'", ns)
             except Exception:
@@ -151,10 +166,12 @@ class NotifyMeMagics(Magics):
 
             js = f"""
             (function() {{
-                var w = window;
-                while (w !== w.parent) {{
-                    w = w.parent;
+                if (window.IPython && IPython.notebook && !IPython.notebook.kernel) {{
+                    console.log("Skipping inline notification: kernel not ready.");
+                    return;
                 }}
+                var w = window;
+                while (w !== w.parent) {{ w = w.parent; }}
                 w.notifyMe({title!r}, {message!r}, {icon!r});
             }})();
             """
@@ -192,11 +209,19 @@ class NotifyMeMagics(Magics):
 
         js = f"""
         (function() {{
-            var w = window;
-            while (w !== w.parent) {{
-                w = w.parent;
+            // Only execute if the notebook kernel is actually running/ready
+            // or if this is a fresh manual execution.
+            if (window.IPython && IPython.notebook && !IPython.notebook.kernel) {{
+                console.log("Skipping post-run notification: kernel not ready.");
+                return;
             }}
-            w.notifyMe({args.t!r}, {message!r}, {args.icon!r});
+
+            var w = window;
+            while (w !== w.parent) {{ w = w.parent; }}
+            
+            if (typeof w.notifyMe === 'function') {{
+                w.notifyMe({args.t!r}, {message!r}, {args.icon!r});
+            }}
         }})();
         """
 
@@ -205,10 +230,35 @@ class NotifyMeMagics(Magics):
             metadata={}
         )
 
+    def _make_inline_js(self, title, message, icon):
+        return f"""
+        (function() {{
+            if (window.IPython && IPython.notebook && !IPython.notebook.kernel) {{
+                console.log("Skipping inline notification: kernel not ready.");
+                return;
+            }}
+            var w = window;
+            while (w !== w.parent) {{ w = w.parent; }}
+            w.notifyMe({title!r}, {message!r}, {icon!r});
+        }})();
+        """
+
+    def _make_postrun_js(self, title, message, icon):
+        return f"""
+        (function() {{
+            if (window.IPython && IPython.notebook && !IPython.notebook.kernel) {{
+                console.log("Skipping post-run notification: kernel not ready.");
+                return;
+            }}
+            var w = window;
+            while (w !== w.parent) {{ w = w.parent; }}
+            w.notifyMe({title!r}, {message!r}, {icon!r});
+        }})();
+        """
+
 
 def load_ipython_extension(ipython):
     magics = NotifyMeMagics(ipython)
     ipython.register_magics(magics)
     ipython.events.register("post_run_cell", magics.post_run_cell)
     ipython.notifyme_magics = magics
-
