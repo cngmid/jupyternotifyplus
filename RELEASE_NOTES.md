@@ -1,24 +1,14 @@
-## 0.4.2 — Fix notifications firing on notebook load
+## Changelog
 
-### Bug fix:
+### DOCUMENTATION
 
-Opening a notebook could trigger old notifications because classic
-Jupyter Notebook replays JavaScript outputs before the kernel starts.
 
-### Fix:
+- startup: permission check on load — left-side banner; remove startup confirmation; docs
 
-All notification JavaScript now checks whether the kernel is ready:
 
-```javascript
-if (window.IPython && IPython.notebook && !IPython.notebook.kernel) {
-    return;
-}
-```
+### OTHER
 
-This prevents notifications from firing during notebook restore.
 
-### Other improvements:
+- update CHANGELOG
 
-- Cleaner JS injection
-- More robust inline and post‑run notifications
-- Tests updated to cover restore behavior
+
