@@ -1,17 +1,4 @@
-## Changelog
-
-### DOCUMENTATION
-
-
-- startup: permission check on load — left-side banner; remove startup confirmation; docs
-
-
-### OTHER
-
-
-- update CHANGELOG
-
-## v0.4.3 — 2026-05-12
+## v0.5.0 — 2026-05-12
 
 ### 🐛 Fixes
 
@@ -21,6 +8,10 @@
 
 - doc: update usage.md
 
+### 🔧 Internal
+
+- Update CHANGELOG
+
 ## v0.4.2 — 2025-02-19
 
 ### 🐛 Fixes
@@ -29,6 +20,7 @@
 
 - fix: 'NotifyMeMagics' object has no attribute '_pending_args'
 
+### 🔧 Internal
 
 - Update CHANGELOG
 
