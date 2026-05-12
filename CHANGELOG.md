@@ -1,3 +1,13 @@
+## v0.4.3 — 2026-05-12
+
+### 🐛 Fixes
+
+- fix: Startup permission check with left-side banner.
+
+### 📚 Documentation
+
+- doc: update usage.md
+
 ## v0.4.2 — 2025-02-19
 
 ### 🐛 Fixes
@@ -42,7 +52,7 @@
 
 - fix: bump version in version.py
 
-- Fix: create tag needs the version
+- fix: create tag needs the version
 
 ### 📚 Documentation
 

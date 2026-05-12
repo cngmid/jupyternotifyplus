@@ -4,6 +4,7 @@ from datetime import datetime
 
 from IPython.core.magic import Magics, magics_class, line_magic
 from IPython.display import publish_display_data
+from IPython.display import Javascript, display
 
 # Default icon
 DEFAULT_ICON = "https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/2139.png"
@@ -15,6 +16,189 @@ _INIT_JS = r"""
     var w = window;
     while (w !== w.parent) {
         w = w.parent;
+    }
+
+    function ensureToastContainer() {
+        var existing = w.document.getElementById("jnp-toast-container");
+        if (existing) return existing;
+
+        var container = w.document.createElement("div");
+        container.id = "jnp-toast-container";
+        container.style.position = "fixed";
+        container.style.bottom = "20px";
+        container.style.right = "20px";
+        container.style.zIndex = 9999;
+        container.style.display = "flex";
+        container.style.flexDirection = "column";
+        container.style.gap = "8px";
+        w.document.body.appendChild(container);
+        return container;
+    }
+
+    function showToast(title, body) {
+        var container = ensureToastContainer();
+        var toast = w.document.createElement("div");
+        toast.style.background = "rgba(40, 40, 40, 0.95)";
+        toast.style.color = "white";
+        toast.style.padding = "10px 14px";
+        toast.style.borderRadius = "4px";
+        toast.style.boxShadow = "0 2px 6px rgba(0,0,0,0.4)";
+        toast.style.fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+        toast.style.fontSize = "13px";
+        toast.style.maxWidth = "320px";
+
+        var titleEl = w.document.createElement("div");
+        titleEl.textContent = title || "Notification";
+        titleEl.style.fontWeight = "600";
+        titleEl.style.marginBottom = body ? "2px" : "0";
+
+        var bodyEl = w.document.createElement("div");
+        bodyEl.textContent = body || "";
+        bodyEl.style.fontWeight = "400";
+
+        toast.appendChild(titleEl);
+        if (body) {
+            toast.appendChild(bodyEl);
+        }
+
+        container.appendChild(toast);
+
+        setTimeout(function() {
+            toast.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+            toast.style.opacity = "0";
+            toast.style.transform = "translateY(5px)";
+            setTimeout(function() {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 400);
+        }, 3500);
+    }
+
+    function showPermissionWarning() {
+        var existing = w.document.getElementById("jnp-permission-warning");
+        if (existing) return;
+
+        var box = w.document.createElement("div");
+        box.id = "jnp-permission-warning";
+        box.style.position = "fixed";
+        box.style.top = "20px";
+        box.style.left = "20px";               // <-- left side
+        box.style.zIndex = 99999;
+        box.style.background = "rgba(255, 245, 210, 0.98)";
+        box.style.color = "#222";
+        box.style.padding = "10px 14px";
+        box.style.borderRadius = "6px";
+        box.style.boxShadow = "0 2px 8px rgba(0,0,0,0.18)";
+        box.style.fontFamily = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+        box.style.fontSize = "13px";
+        box.style.maxWidth = "360px";
+        box.style.lineHeight = "1.25";
+
+        var title = w.document.createElement("div");
+        title.style.fontWeight = "600";
+        title.style.marginBottom = "6px";
+        title.textContent = "jupyternotifyplus: notifications disabled";
+
+        var origin = (w.location && w.location.origin) ? w.location.origin : "this site";
+
+        var message = w.document.createElement("div");
+        message.style.marginBottom = "8px";
+
+        var perm = (w.Notification && w.Notification.permission) ? w.Notification.permission : "unsupported";
+
+        if (perm === "default") {
+            message.textContent = "Notifications are not allowed yet. Click Request to ask the browser for permission.";
+        } else if (perm === "denied") {
+            message.textContent = "Notifications are blocked for " + origin + ". Enable them via the lock icon → Site settings → Notifications → Allow.";
+        } else {
+            message.textContent = "Notifications are not available in this browser.";
+        }
+
+        var btns = w.document.createElement("div");
+        btns.style.display = "flex";
+        btns.style.gap = "8px";
+
+        if (perm === "default") {
+            var req = w.document.createElement("button");
+            req.textContent = "Request";
+            req.style.cursor = "pointer";
+            req.style.padding = "6px 10px";
+            req.style.border = "none";
+            req.style.borderRadius = "4px";
+            req.style.background = "#0b66ff";
+            req.style.color = "white";
+            req.onclick = function() {
+                try {
+                    w.Notification.requestPermission().then(function(p) {
+                        if (p === "granted") {
+                            showToast("Notifications enabled", "You will now receive desktop notifications.");
+                            if (box.parentNode) box.parentNode.removeChild(box);
+                        } else if (p === "denied") {
+                            showToast("Notifications blocked", "Permission denied. Use site settings to re-enable.");
+                            message.textContent = "Notifications are blocked for " + origin + ". Enable them via the lock icon → Site settings → Notifications → Allow.";
+                        }
+                    }).catch(function() {
+                        showToast("Request failed", "Could not request permission from the browser.");
+                    });
+                } catch (e) {
+                    showToast("Request failed", "Could not request permission from the browser.");
+                }
+            };
+            btns.appendChild(req);
+        }
+
+        var dismiss = w.document.createElement("button");
+        dismiss.textContent = "Dismiss";
+        dismiss.style.cursor = "pointer";
+        dismiss.style.padding = "6px 10px";
+        dismiss.style.border = "none";
+        dismiss.style.borderRadius = "4px";
+        dismiss.style.background = "#e0e0e0";
+        dismiss.onclick = function() {
+            if (box.parentNode) box.parentNode.removeChild(box);
+        };
+        btns.appendChild(dismiss);
+
+        box.appendChild(title);
+        box.appendChild(message);
+        box.appendChild(btns);
+
+        w.document.body.appendChild(box);
+
+        // Auto-fade after 10s if not interacted with
+        setTimeout(function() {
+            if (box.parentNode) {
+                box.style.transition = "opacity 0.4s ease";
+                box.style.opacity = "0";
+                setTimeout(function() {
+                    if (box.parentNode) box.parentNode.removeChild(box);
+                }, 400);
+            }
+        }, 10000);
+    }
+
+    // Startup check using top window
+    if (typeof w !== "undefined" && "Notification" in w) {
+        try {
+            if (w.Notification.permission !== "granted") {
+                showPermissionWarning();
+            }
+        } catch (e) {
+            console.log("jupyternotifyplus: permission check failed", e);
+        }
+    }
+
+    // --- Replace the startup check with this (use w.Notification) ---
+    if (typeof w !== "undefined" && "Notification" in w) {
+        try {
+            if (w.Notification.permission !== "granted") {
+                showPermissionWarning();
+            }
+        } catch (e) {
+            // fallback: if anything goes wrong, do nothing
+            console.log("jupyternotifyplus: permission check failed", e);
+        }
     }
 
     w.notifyMe = function(title, body, iconUrl) {
@@ -32,7 +216,8 @@ _INIT_JS = r"""
         }
 
         if (!("Notification" in w)) {
-            console.log("Browser does not support notifications.");
+            console.log("Browser does not support notifications, using toast fallback.");
+            showToast(title, body);
             return;
         }
 
@@ -43,7 +228,8 @@ _INIT_JS = r"""
         if (Notification.permission === "granted") {
             new Notification(title, { body: body, icon: iconUrl });
         } else {
-            console.log("Notification permission not granted.");
+            console.log("Notification permission not granted, using toast fallback.");
+            showPermissionWarning();
         }
     };
 
@@ -260,5 +446,9 @@ class NotifyMeMagics(Magics):
 def load_ipython_extension(ipython):
     magics = NotifyMeMagics(ipython)
     ipython.register_magics(magics)
+
+    # Force JS execution by emitting a visible output cell
+    display(Javascript(_INIT_JS))
+
     ipython.events.register("post_run_cell", magics.post_run_cell)
     ipython.notifyme_magics = magics

@@ -12,6 +12,25 @@ You have two main commands:
 
 ---
 
+## Startup Permission Check
+
+On `%load_ext` or `%reload_ext` the extension checks notification
+permission and acts accordingly:
+
+ - if permission is **granted** nothing is shown;
+
+ - if **default** a compact yellow banner appears on the **left**
+with **Request** and **Dismiss**;
+
+ - if **denied** the same left banner appears with a **Dismiss** button
+and brief instructions to enable notifications via the browser site
+settings.
+
+When native notifications are unavailable or blocked the extension falls
+back to an in‑page toast so messages remain visible.
+
+---
+
 ## Notification Execution Behaviour
 
 `%notifyme` schedules a notification for the **next executed cell**.
