@@ -1,0 +1,25 @@
+{# No need to import the icon macro anymore #}
+
+{% for entry in config.extra.social %}
+  <a href="{{ entry.link }}"
+     target="_blank"
+     rel="noopener"
+     title="{{ entry.name | default('') }}"
+     class="md-social__link">
+    {# Dynamically include the icon based on the path in mkdocs.yml #}
+    <span class="twemoji">
+      {% include ".icons/" ~ entry.icon ~ ".svg" %}
+    </span>
+  </a>
+{% endfor %}
+
+{# Your custom hardcoded link #}
+<a href="https://cngmid.github.io/jupyternotifyplus/changelog?ref=footer"
+   target="_blank"
+   rel="noopener"
+   title="Changelog"
+   class="md-social__link">
+  <span class="twemoji">
+    {% include ".icons/material/file-document-outline.svg" %}
+  </span>
+</a>
