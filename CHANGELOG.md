@@ -1,3 +1,16 @@
+## Changelog
+
+### DOCUMENTATION
+
+
+- startup: permission check on load — left-side banner; remove startup confirmation; docs
+
+
+### OTHER
+
+
+- update CHANGELOG
+
 ## v0.4.3 — 2026-05-12
 
 ### 🐛 Fixes
